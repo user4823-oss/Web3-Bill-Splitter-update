@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Bill Splitter</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.1/ethers.umd.min.js"></script>
+    <script src="shardeum-config.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧾 Web3 Bill Splitter</h1>
+            <div id="wallet-section">
+                <button id="connect-wallet" class="btn btn-primary">Connect Wallet</button>
+                <div id="wallet-info" style="display: none;">
+                    <span id="wallet-address"></span>
+                    <span id="wallet-balance"></span>
+                    <button id="disconnect-wallet" class="btn btn-secondary">Disconnect</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Processing...</p>
+            </div>
+
+            <!-- Welcome Section -->
+            <section id="welcome-section" class="section">
+                <div class="welcome-card">
+                    <h2>Welcome to Web3 Bill Splitter!</h2>
+                    <p>Split bills seamlessly with your friends using Ethereum wallets. No accounts needed!</p>
+                    <ul>
+                        <li>✅ Connect with MetaMask</li>
+                        <li>✅ Create and share bills</li>
+                        <li>✅ Automatic split calculations</li>
+                        <li>✅ Direct crypto payments</li>
+                    </ul>
+                    <p><strong>To get started, connect your wallet above!</strong></p>
+                </div>
+            </section>
+
+            <!-- Dashboard -->
+            <section id="dashboard-section" class="section" style="display: none;">
+                <div class="dashboard-header">
+                    <h2>Your Bills</h2>
+                    <button id="create-bill-btn" class="btn btn-primary">+ Create New Bill</button>
+                </div>
+                
+                <div class="bill-stats">
+                    <div class="stat-card">
+                        <h3 id="total-bills">0</h3>
+                        <p>Total Bills</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="pending-payments">0</h3>
+                        <p>Pending Payments</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-owed">0.00 ETH</h3>
+                        <p>Total You Owe</p>
+                    </div>
+                </div>
+
+                <div id="bills-container">
+                    <div id="no-bills" class="no-bills">
+                        <p>No bills yet. Create your first bill to get started!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Create Bill Form -->
+            <section id="create-bill-section" class="section" style="display: none;">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Create New Bill</h2>
+                        <button id="back-to-dashboard" class="btn btn-secondary">← Back</button>
+                    </div>
+                    
+                    <form id="create-bill-form">
+                        <div class="form-group">
+                            <label for="bill-title">Bill Title *</label>
+                            <input type="text" id="bill-title" placeholder="e.g., Dinner at Restaurant" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bill-description">Description (optional)</label>
+                            <textarea id="bill-description" placeholder="Add more details about this bill..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="total-amount">Total Amount (ETH) *</label>
+                            <input type="number" id="total-amount" step="0.001" min="0" placeholder="0.0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Split Method</label>
+                            <div class="split-options">
+                                <label class="radio-label">
+                                    <input type="radio" name="split-method" value="equal" checked>
+                                    <span>Equal Split</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="split-method" value="custom">
+                                    <span>Custom Amounts</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Participants</label>
+                            <div id="participants-container">
+                                <div class="participant-item">
+                                    <input type="text" placeholder="Wallet Address (0x...)" class="participant-address" required>
+                                    <input type="text" placeholder="Name (optional)" class="participant-name">
+                                    <input type="number" placeholder="Amount" class="participant-amount" step="0.001" style="display: none;">
+                                    <button type="button" class="remove-participant" style="display: none;">×</button>
+                                </div>
+                            </div>
+                            <button type="button" id="add-participant" class="btn btn-outline">+ Add Participant</button>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Create Bill</button>
+                            <button type="button" id="cancel-create" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Bill Detail -->
+            <section id="bill-detail-section" class="section" style="display: none;">
+                <div class="bill-detail-container">
+                    <div class="bill-detail-header">
+                        <button id="back-from-detail" class="btn btn-secondary">← Back</button>
+                        <div class="bill-actions">
+                            <button id="delete-bill" class="btn btn-danger" style="display: none;">Delete</button>
+                        </div>
+                    </div>
+                    
+                    <div id="bill-detail-content">
+                        <!-- Bill details will be populated here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
