@@ -10,7 +10,7 @@ A peer-to-peer bill splitting app using Ethereum wallets (MetaMask).
 
 ## Run Locally
 ```bash
-git clone https://github.com/<your-username>/web3-bill-splitter.git
+git clone https://github.com/user4823-oss/web3-bill-splitter.git
 cd web3-bill-splitter
 npm install
 npm start
