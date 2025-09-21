@@ -1,5 +1,4 @@
 # Web3-Bill-Splitter
-# Web3 Bill Splitter
 
 A peer-to-peer bill splitting app using Ethereum wallets (MetaMask).
 
